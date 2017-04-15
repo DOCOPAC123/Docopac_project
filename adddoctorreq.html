@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ADMIN PORTAL</title>
+	 <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body><center>
+	<h1>Patient-Doctor Mapping Requests</h1><br><br>
+	Select "Approve" to approve request or "Revoke" to delete the following requests.<br>
+	You May also select "Approve All" to approve all requests at once, or "Revoke All" to delete all requests<br><br>
+	<table class="table" border="5px" align="center" width="600" cellspacing="1" cellpadding="1">
+		<tr>
+			<th >Patient UserName</th>
+			<th>Doctor Username</th>
+			<th>Approve</th>
+		</tr>
+
+	<?php
+	$conn = mysqli_connect('localhost','DOCOPAC','dexter','hospital');
+	if(!$conn)
+		die("Connection failed!<br>".mysqli_connect_error());
+	$cookiename = md5('a');
+	if(isset($_COOKIE[$cookiename])){
+		$query = "SELECT * from adddoctor";
+		$result = mysqli_query($conn,$query);
+		while($row = mysqli_fetch_assoc($result)){
+			$pusername = $row['pusername'];
+			$dusername = $row['dusername'];
+			echo "<tr>";
+			echo "<td class=\"success\">".$pusername."</td>";
+			echo "<td class=\"warning\">".$dusername."</td>";
+			echo "<form method = \"post\" action=\"approve.php\">";
+			echo "<td><input name=\"Approve".md5($pusername.$dusername)."\" type=\"submit\" value=\"Approve\"/></form>";
+			echo "<form method = \"post\" action=\"revoke.php\">";
+			echo "<input name=\"Revoke".md5($pusername.$dusername)."\" type=\"submit\" value=\"Revoke\"/></td></form>";
+			echo "</tr>";
+		}
+	}
+	else{
+		echo "YOU HAVE BEEN LOGGED OUT.<br>Redirecting you back to Login Page.";
+		echo "<meta http-equiv=\"refresh\" content=\"5;URL=login.html\" />";
+	}
+	?>
+	<br>
+	</table>
+	<a href="approveall.php"><h2>Approve all Requests</h2></a><br>
+	<a href="revokeall.php"><h2>Revoke all Requests</h2></a><br><br><br>
+	<a href="admin.php">Home</a><br>
+	<a href="logout.php">Logout</a>
+</center>
+</body>
+</html>

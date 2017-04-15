@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>table</title>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+<center>
+<h1>Doctor Profile</h1>
+	<table class="table" border="5px" align="center" width="600" cellspacing="1" cellpadding="1">
+		<tr>
+			<th class="success">UserName</th>
+			<th class="info">Doctor Name</th>
+			<th class="warning">DOB</th>
+			<th class="danger">DSEX</th>
+			<th class="info">Address</th>
+			<th class="danger">Contact</th>
+			<th class="info">Email</th>
+			<th class="warning">Qualifications</th>
+			<th class="danger">Department</th>
+		</tr>
+		<?php
+		$conn = mysqli_connect('localhost','DOCOPAC','dexter','hospital');
+		if(!$conn)
+			die("Connection failed!<br>".mysqli_connect_error());
+		$cookiename = md5('d');
+		if(isset($_COOKIE[$cookiename])){
+			$username = $_COOKIE['username'];
+			$query = "select * from doctor where dusername = '$username'";
+			$result = mysqli_query($conn,$query);
+			while($row = mysqli_fetch_assoc($result)){
+				echo "<tr>";
+				echo "<td>".$row['dusername']."</td>";
+				echo "<td>".$row['dfname']." ".$row['dmname']." ".$row['dlname']."</td>";
+				echo "<td>".$row['ddob']."</td>";
+				echo "<td>".$row['dsex']."</td>";
+				echo "<td>".$row['daddress']."</td>";
+				echo "<td>".$row['dcontact']."</td>";
+				echo "<td>".$row['demail']."</td>";
+				echo "<td>".$row['dqualification']."</td>";
+				echo "<td>".$row['department']."</td>";
+				echo "</tr>";
+			}
+			echo "</table>";
+			echo "<br><h1>Patients Currently under you : </h1> <br>";
+			echo "";
+		}
+		else{
+			echo "YOU HAVE BEEN LOGGED OUT.<br>Redirecting you back to Login Page.";
+			echo "<meta http-equiv=\"refresh\" content=\"5;URL=login.html\" />";
+		}	
+		?>
+		<table class="table" border="5px" align="center" width="600" cellspacing="1" cellpadding="1">
+		<tr>
+			<th >Patient Name - UserName</th>
+			<th >Referalls</th>
+		</tr>
+		<?php
+		$cookiename = md5('d'); 
+		if(isset($_COOKIE[$cookiename])){
+			$dusername = $_COOKIE['username'];
+			$query = "select * from patient,pdmap where pdmap.dusername = '$dusername' and patient.pusername=pdmap.pusername";
+			$result = mysqli_query($conn,$query);
+			while($row = mysqli_fetch_assoc($result)){
+				echo "<tr><td class=\"success\">".$row['pfname']." ".$row['pmname']." ".$row['plname']."  -  ".$row['pusername']."</td>";
+				$pusername = $row['pusername'];
+				$query2 = "select count(*) from record where pusername = '$pusername' and dusername = '$dusername'";
+				$result2 = mysqli_query($conn,$query2);
+				while($under = mysqli_fetch_assoc($result2))
+					echo "<td class=\"danger\">".$under['count(*)']."</td></tr>";
+			}
+			echo "</table>";
+			echo "<br><a href=\"doctor.php\"><h3>Go back to your home page</h3></a><br>";
+			echo "<a href=\"logout.php\">Logout</a>";
+		}
+		else{
+			echo "YOU HAVE BEEN LOGGED OUT.<br>Redirecting you back to Login Page.";
+			echo "<meta http-equiv=\"refresh\" content=\"5;URL=login.html\" />";
+		}	
+		?>
+		</table>
+		</center>
+	</body>
+	</html>

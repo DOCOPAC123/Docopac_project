@@ -1,0 +1,56 @@
+<html>
+<head>
+<title></title>
+<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+<style>
+ {
+  text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+}	
+</style>
+</head>
+<body>
+</body>
+<?php
+	 $conn = mysqli_connect('localhost','DOCOPAC','dexter','hospital');
+    if(!$conn)
+        die("Connection failed!<br>".mysqli_connect_error());
+    $cookiename = md5('d');
+    if(isset($_COOKIE[$cookiename])){
+    $dusername = $_COOKIE['username'];
+    $pusername = $_POST['pusername'];
+   	$subject = $_POST['subject'];
+	$prescription = $_POST['prescription'];
+	$test = $_POST['test'];
+	$medicinelist= $_POST['medicinelist'];
+	$d = date('Y-m-d H:i:s',time());
+	$query = "INSERT INTO record(rtime,pusername,dusername,subject,prescription,test,medicinelist) VALUES('$d','$pusername','$dusername','$subject','$prescription','$test','$medicinelist')";
+    if($pusername != NULL){
+    $result = mysqli_query($conn,$query); 
+	echo "Patient record successfully stored. Redirecting you back to home page.";
+	}
+	else
+		echo "Record entry failed. You don't have a patient under you!  Redirecting you back to home page.";
+	echo "<meta http-equiv=\"refresh\" content=\"5;URL=doctor.php\" />";
+	}
+	else{
+			echo "YOU HAVE BEEN LOGGED OUT.<br>Redirecting you back to Login Page.";
+			echo "<meta http-equiv=\"refresh\" content=\"5;URL=login.html\" />";
+	}	
+?>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title></title>
+
+<script type="text/javascript">
+    function validate(){
+      var p1 = document.forms["register"]["password1"].value;
+      var p2 = document.forms["register"]["password2"].value;
+      if(p1!=p2){
+        alert("The passwords don't match. Please retry!");
+        return false;
+      }
+      var d = document.forms["register"]["date"].value;
+      if(d.checkValidity()==false){
+        alert("The date of birth has an incorrect format. Please retry!");
+        return false; 
+      }
+      var user = document.forms["register"]["username"].value;
+      for(i=0;i<user.length;++i){
+        if(!(user[i]>='a' && user[i]<='z' || user[i]>='A' && user[i]<='Z' || user[i]=='.') || user.length<5){
+          alert("Invalide username! Select a username 5 to 30 characters long consisting only of alphabets, numbers and period('.')");
+          return false;
+        }
+      }
+      if(p1.length<5 || p1==user){
+        alert("Invalid password! Select a password atlease 5 characters long, different from username!");
+        return false; 
+      } 
+      return true;
+    }
+  </script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+
+<style type="text/css">
+/*Remove that CSS*/
+.col-md-3 {
+    margin-left:5%;
+    }
+/*Remove that CSS*/
+
+
+
+button {
+  margin: 20px 0;
+  line-height: 34px;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  outline:none !important;
+  width:100%;
+}
+
+button:active {
+
+  outline:none;
+}
+
+button.ribbon {
+  
+  outline:none;
+  outline-color: transparent;
+}
+button.ribbon:before, button.ribbon:after {
+  top: 5px;
+  z-index: -10;
+}
+button.ribbon:before {
+  border-color: #53dab6 #53dab6 #53dab6 transparent;
+  left: -25px;
+  border-width: 17px;
+}
+button.ribbon:after {
+  border-color: #53dab6 transparent #53dab6 #53dab6;
+  right: -25px;
+  border-width: 17px;
+}
+
+button:before, button:after {
+  content: '';
+  position: absolute;
+  height: 0;
+  width: 0;
+  border-style: solid;
+  border-width: 0;
+  outline:none;
+}
+
+button.btn-default:before {
+  border-color: #757575 #757575 #757575 transparent;
+    }
+    button.btn-default:after {
+  border-color: #757575 transparent #757575 #757575;
+    }
+    
+    
+    
+    button.btn-primary:before {
+  border-color: #2e6da4 #2e6da4 #2e6da4 transparent;
+    }
+    button.btn-primary:after {
+  border-color: #2e6da4 transparent #2e6da4 #2e6da4;
+    }
+    
+    
+    button.btn-success:before {
+  border-color: #398439 #398439 #398439 transparent;
+    }
+    button.btn-success:after {
+  border-color: #398439 transparent #398439 #398439;
+    }
+    
+    
+    button.btn-info:before {
+  border-color: #269abc #269abc #269abc transparent;
+    }
+    button.btn-info:after {
+  border-color: #269abc transparent #269abc #269abc;
+    }
+    
+    
+    button.btn-warning:before {
+  border-color: #d58512 #d58512 #d58512 transparent;
+    }
+    button.btn-warning:after {
+  border-color: #d58512 transparent #d58512 #d58512;
+    }
+    
+    
+    button.btn-danger:before {
+  border-color: #ac2925 #ac2925 #ac2925 transparent;
+    }
+    button.btn-danger:after {
+  border-color: #ac2925 transparent #ac2925 #ac2925;
+    }
+    
+    
+
+</style>
+
+</head>
+<body>
+<center>
+<div class="container">	
+    
+    <div class="row">
+    
+    <div class="col-lg-16">       <!-- Standard button -->
+<button type="button" class="btn btn-danger ribbon" align="center"><h4>Doctor Application Form</h4></button>
+
+</div>
+    
+ 
+    </div>
+    
+  </div>  
+</center>
+<br>
+
+<form method="post" class="form-horizontal" action="dregister.php" onsubmit="return validate()">
+<fieldset>
+
+
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="Username">Username</label>  
+  <div class="col-md-4">
+  <input id="Username" name="username" placeholder="patient username" class="form-control input-md" required="" type="text">
+    
+  </div>
+</div>
+
+<!-- Password input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="">Password </label>
+  <div class="col-md-4">
+    <input id="" name="password1" placeholder="account password " class="form-control input-md" required="" type="password">
+    
+  </div>
+</div>
+
+<!-- Password input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="ppassword">Confirm Password </label>
+  <div class="col-md-4">
+    <input id="ppassword" name="password2" placeholder="confirm password" class="form-control input-md" required="" type="password">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="demail">Email Address</label>  
+  <div class="col-md-4">
+  <input id="demail" name="demail" placeholder="you@domain.com" class="form-control input-md" required="" type="text">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="dcontact">Contact</label>  
+  <div class="col-md-4">
+  <input id="dcontact" name="dcontact" placeholder="+91-xxx-xxxx-xxx" class="form-control input-md" type="text">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="dfname">First name</label>  
+  <div class="col-md-4">
+  <input id="dfname" name="dfname" placeholder="first name" class="form-control input-md" required="" type="text">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="dmname">Middle Name</label>  
+  <div class="col-md-4">
+  <input id="dmname" name="dmname" placeholder="middle name" class="form-control input-md" type="text">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="dlname">Last Name</label>  
+  <div class="col-md-4">
+  <input id="dlname" name="dlname" placeholder="last name" class="form-control input-md" type="text">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="dqualification">Qualification</label>  
+  <div class="col-md-4">
+  <input id="dqualification" name="dqualification" placeholder="MBBS/MD/DM" class="form-control input-md" type="text">
+    
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="department">Department</label>
+  <div class="col-md-4">
+    <select id="department" name="department" class="form-control">
+      <option value="ENT">ENT</option>
+      <option value="Orthopaedics">Orthopaedics</option>
+      <option value="Surgery">Surgery</option>
+      <option value="Gynaecology">Gynaecology</option>
+      <option value="Neurology">Neurology</option>
+      <option value="Cardiology">Cardiology</option>
+      <option value="Lab Testing">Lab Testing</option>
+      <option value="General">General</option>
+      <option value="Dental">Dental</option>
+      <option value="Gestroeneterology">Gestroeneterology</option>
+      <option value="Respiratory">Respiratory</option>
+      <option value="">Option two</option>
+    </select>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="ddob">Date Of Birth</label>  
+  <div class="col-md-4">
+  <input id="ddob" name="ddob" placeholder="YYYY-MM-DD" class="form-control input-md" type="text">
+    
+  </div>
+</div>
+
+<!-- Multiple Radios -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="dsex">Gender</label>
+  <div class="col-md-4">
+  <div class="radio">
+    <label for="dsex-0">
+      <input name="dsex" id="dsex-0" value="M" checked="checked" type="radio">
+      Male
+    </label>
+	</div>
+  <div class="radio">
+    <label for="dsex-1">
+      <input name="dsex" id="dsex-1" value="F" type="radio">
+      Female
+    </label>
+	</div>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="daddress">Address</label>  
+  <div class="col-md-4">
+  <input id="daddress" name="daddress" placeholder="resedential  address" class="form-control input-md" type="text">
+    
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="submit"></label>
+  <div class="col-md-4">
+    <button id="submit" name="submit" class="btn btn-success" >submit</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
+ 
+    
+	
+	</body>
+</html>
+

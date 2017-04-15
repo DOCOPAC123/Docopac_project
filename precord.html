@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>PATIENT PORTAL</title>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+<center>
+<h1>Your Medical Record History</h1>
+	<table class="table" border="5px" align="center" width="600" cellspacing="1" cellpadding="1">
+		<tr>
+			<th>Record Id</th>
+			<th>Time</th>
+			<th>Doctor</th>
+			<th>Department</th>
+			<th>Problem</th>
+			<th>Prescription</th>
+			<th>Test Recommended</th>
+			<th>Medicines Prescribed</th>
+		</tr>
+		<?php
+		$conn = mysqli_connect('localhost','DOCOPAC','dexter','hospital');
+		if(!$conn)
+			die("Connection failed!<br>".mysqli_connect_error());
+		$cookiename = md5('p');
+		if(isset($_COOKIE[$cookiename])){
+			$pusername = $_COOKIE['username'];
+			$query = "select * from record,doctor WHERE pusername = '$pusername' and doctor.dusername = record.dusername";
+			$result = mysqli_query($conn,$query);
+			while($row=mysqli_fetch_assoc($result)){
+
+				echo "<tr>";
+				echo "<td  class=\"success\">".$row['rid']."</td>";
+				echo "<td class=\"info\">".$row['rtime']."</td>";
+				echo "<td class=\"warning\">".$row['dfname']." ".$row['dmname']." ".$row['dlname']."</td>";
+				echo "<td class=\"danger\">".$row['department']."</td>";
+				echo "<td class=\"success\" >".$row['subject']."</td>";
+				echo "<td class=\"info\">".$row['prescription']."</td>";
+				echo "<td class=\"warning\">".$row['test']."</td>";
+				echo "<td class=\"danger\">".$row['medicinelist']."</td>";
+				echo "</tr>";
+			}
+			echo "</table>";
+			echo "<br><a href=\"patient.php\"><h3>Go back to your home page</h3></a><br>";
+			echo "<a href=\"logout.php\">Logout</a>";
+		}
+		else{
+			echo "YOU HAVE BEEN LOGGED OUT.<br>Redirecting you back to Login Page.";
+			echo "<meta http-equiv=\"refresh\" content=\"5;URL=login.html\" />";
+		}	
+		?>
+		
+	</body>
+	</html>

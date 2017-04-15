@@ -1,0 +1,11 @@
+INSERT INTO department(deptname) values("ENT");
+INSERT INTO department(deptname) values("ORTHOPAEDICS");
+INSERT INTO department(deptname) values("SURGERY");
+INSERT INTO department(deptname) values("GYNAECOLOGY");
+INSERT INTO department(deptname) values("CARDIOLOGY");
+INSERT INTO department(deptname) values("NEUROLOGY");
+INSERT INTO department(deptname) values("LAB TESTING");
+INSERT INTO department(deptname) values("GENERAL");
+INSERT INTO department(deptname) values("DENTAL");
+INSERT INTO department(deptname) values("GASTROENTEROLOGY");
+INSERT INTO department(deptname) values("RESPIRATORY");
